@@ -1,0 +1,46 @@
+<h2 id="createtestdataforapextests">Create Test Data for Apex Tests</h2>                                                                                                                                                                           
+<h4 id="addingatestutilityclass">Adding a Test Utility Class</h4>                                                                                                                                                                                  
+<blockquote>                                                                                                                                                                                                                                       
+  <p>[!NOTE] Test Utility Class</p>                                                                                                                                                                                                                
+  <ol>                                                                                                                                                                                                                                             
+  <li>In the Developer Console, click <strong>File</strong> | <strong>New</strong> | <strong>Apex Class</strong>, and enter TestDataFactory for the class name, and then click <strong>OK</strong>.</li>
+  <li>Replace the default class body with the following.
+     <code>Java
+   @isTest
+   public class TestDataFactory {
+       public static List&lt; Account &gt; createAccountsWithOpps(Integer numAccts, Integer numOppsPerAcct) {
+           List &lt; Account &gt; accts = new List&lt; Account &gt;();
+           for(Integer i=0; i &lt; numAccts;i++) {
+               Account a = new Account(Name='TestAccount' + i);
+               accts.add(a);
+           }
+           insert accts;
+           List &lt; Opportunity &gt; opps = new List &lt; Opportunity &gt;();
+           for (Integer j=0;j &lt; numAccts;j++) {
+               Account acct = accts[j];
+               // For each account just inserted, add opportunities
+               for (Integer k=0;k &lt; numOppsPerAcct;k++) {
+                   opps.add(new Opportunity(Name=acct.Name + ' Opportunity ' + k,
+                                          StageName='Prospecting',
+                                          CloseDate=System.today().addMonths(1),
+                                          AccountId=acct.Id));
+               }
+           }
+           // Insert all opportunities for all accounts.
+           insert opps;
+           return accts;
+       }
+   }
+</code></li>
+  </ol>
+  <ul>                                                                                                                                                                                                                                             
+  <li>This class utility contains one static method, <code>createAccountsWithOpps()</code>, which accepts the number of accounts and the number of related opportunities to create for each account.</li>                                          
+  <li>The second loop creates the opportunities. Because each group of opportunities are linked to one account, the outer loop iterates through accounts and contains a nested loop that creates related opportunities for the current account</li>
+  </ul>
+</blockquote>                                                                                                                                                                                                                                      
+<h4 id="callingutilitymethodsfortestdatacreation">Calling Utility Methods for Test Data Creation</h4>                                                                                                                                              
+<p>With the factory class that was created, we can utilize the new utility method to create the accounts for us in our Test class:</p>                                                                                                             
+<pre><code class="Java language-Java">        // Test data setup                                                                                                                                                                                   
+        // Create one account with one opportunity by calling a utility method                                                                                                                                                                     
+        Account[] accts = TestDataFactory.createAccountsWithOpps(1,1);
+</code></pre>

@@ -11,6 +11,7 @@
     "commander": "^9.4.0",
     "console-table-printer": "^2.11.1",
     "jsome": "^2.5.0",
+    "showdown": "^2.1.0",
     "xml2js": "^0.4.23"
   }
 }
