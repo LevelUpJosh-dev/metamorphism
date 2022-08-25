@@ -7,6 +7,9 @@ const fs = require(`fs`);
 const jsome = require(`jsome`);
 const xml2js = require(`xml2js`);
 const showdown = require('showdown');
+const { JSDOM } = require('jsdom');
+
+globalThis.window = new JSDOM('', {}).window
 
 /** Module Container  **/
 const CommandFunctions = {};
