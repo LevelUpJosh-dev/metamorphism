@@ -29,6 +29,22 @@ Commands.Map = (Program) => {
         .action(function(options) {
             CommandFunctions.xmlify_json(options);
         });
+
+    Program
+        .command(`markdownify_html`)
+        .description(`parse a markdown file to an html string`)
+        .option(`--path [string]`, `path to the markdown file to build the html from`)
+        .action(function(options) {
+            CommandFunctions.markdownify_html(options);
+        });
+
+    Program
+        .command(`htmlify_markdown`)
+        .description(`parse a html file to an markdown string`)
+        .option(`--path [string]`, `path to the markdown file to build the html from`)
+        .action(function(options) {
+            CommandFunctions.htmlify_markdown(options);
+        });
 }
 
 module.exports = Commands;
