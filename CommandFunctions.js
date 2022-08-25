@@ -11,11 +11,15 @@ const showdown = require('showdown');
 /** Module Container  **/
 const CommandFunctions = {};
 
+/** Fix: Solves window not defined on MAC issue with showdown library **/
+const dom = require('jsdom')
+globalThis.window = new dom.JSDOM('', {}).window
+
 CommandFunctions.jsonify_xml = (options) => {
     const xml_string = fs.readFileSync(options.path, { "encoding": "utf8" });
     const parser = new xml2js.Parser();
     parser.parseString(xml_string, function (err, result) {
-        jsome(result);
+        jsome(JSON.stringify(result));
     });
 }
 
