@@ -1,7 +1,7 @@
 'use strict';
 
 /** Local Modules  **/
-import { jsonify_xml, xmlify_json, markdownify_html, htmlify_markdown } from "./CommandFunctions.js";
+import { jsonify_xml, xmlify_json, markdownify_html, htmlify_markdown, yamlify_json } from "./CommandFunctions.js";
 
 /**
  * Commands - Map
@@ -24,6 +24,14 @@ const MapCommands = (Program) => {
         .option(`--path [string]`, `path to the json file to build the xml from`)
         .action(function(options) {
             xmlify_json(options);
+        });
+
+    Program
+        .command(`yamlify_json`)
+        .description(`parse a JSON object representation of xml to a YAML string`)
+        .option(`--path [string]`, `path to the json file to build the xml from`)
+        .action(function(options) {
+            yamlify_json(options);
         });
 
     Program
