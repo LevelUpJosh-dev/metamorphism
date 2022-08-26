@@ -7,7 +7,7 @@ const Program = new Command();
 import { MapCommands } from './Commands.js';
 
 Program
-    .name(`Glove Box`)
+    .name(`Glove-Box`)
     .description(`A CLI tool with multiple utilities for working with Salesforce data and systems.`)
     .version(`1.0.0`);
 

@@ -11,8 +11,11 @@
   "dependencies": {
     "commander": "^9.4.0",
     "jsdom": "^20.0.0",
-    "jsome": "^2.5.0",
-    "showdown": "^2.1.0",
-    "xml2js": "^0.4.23"
+    "json-format": "^1.0.1",
+    "json-to-pretty-yaml": "^1.2.2",
+    "json2toml": "^3.0.1",
+    "xml2js": "^0.4.23",
+    "npm": "^8.18.0",
+    "showdown": "^2.1.0"
   }
 }

@@ -4,7 +4,9 @@
 import fs from 'node:fs'
 
 /** Additional Packages  **/
-import jsome from 'jsome';
+import * as json2toml from 'json2toml';
+import * as json2yaml from 'json-to-pretty-yaml';
+import * as json_format from 'json-format';
 import xml2js from 'xml2js';
 import showdown from 'showdown';
 import { JSDOM } from 'jsdom';
@@ -17,7 +19,11 @@ const jsonify_xml = (options) => {
     const xml_string = fs.readFileSync(options.path, { "encoding": "utf8" });
     const parser = new xml2js.Parser();
     parser.parseString(xml_string, function (err, result) {
-        jsome(result);
+        const xmlJson =  json_format.default(result, {
+            type : 'space',
+            space : '4'
+        });
+        console.log(xmlJson);
     });
 }
 
@@ -30,6 +36,17 @@ const xmlify_json = (options) => {
     const builder = new xml2js.Builder();
     const xml_string = builder.buildObject(xml_json);
     console.log(xml_string);
+}
+
+/**
+ * Takes a path to a JSON file which will be transformed into YAML
+ * @param { Object } options - Program options
+ **/
+const yamlify_json = (options) => {
+    const json_string = fs.readFileSync(options.path, { "encoding": "utf8" });
+    const json = JSON.parse(json_string)
+    const json_yaml = json2yaml.default.stringify(json);
+    console.log(json_yaml);
 }
 
 /**
@@ -53,9 +70,9 @@ const markdownify_html = (options) => {
      * which allows compatability with nodeJS.
      **/
     globalThis.window = new JSDOM('', {}).window
-    const markdown_string = fs.readFileSync(options.path, { "encoding": "utf8" });
+    const html_string = fs.readFileSync(options.path, { "encoding": "utf8" });
     const converter = new showdown.Converter();
-    console.log(converter.makeMarkdown(markdown_string));
+    console.log(converter.makeMarkdown(html_string));
 }
 
-export { xmlify_json, markdownify_html, htmlify_markdown, jsonify_xml };
+export { xmlify_json, markdownify_html, htmlify_markdown, jsonify_xml, yamlify_json };
