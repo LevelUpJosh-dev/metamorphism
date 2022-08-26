@@ -1,25 +1,21 @@
 'use strict';
 
 /** Local Modules  **/
-const CommandFunctions = require('./CommandFunctions.js');
-
-/** Module Container  **/
-const Commands = {};
+import { jsonify_xml, xmlify_json, markdownify_html, htmlify_markdown } from "./CommandFunctions.js";
 
 /**
  * Commands - Map
- * @param {Object} Program
- * @description Maps the various commands to the glovebox program.
- * @constructor
+ * @param {Object} Program - Instance of the commander program
+ * @description Maps the various commands to the glove-box program.
  */
-Commands.Map = (Program) => {
+const MapCommands = (Program) => {
 
     Program
         .command(`jsonify_xml`)
         .description(`parse an xml file and output a JS object representation of the xml`)
         .option(`--path [string]`, `path to the xml file to parse`)
         .action(function(options) {
-            CommandFunctions.jsonify_xml(options)
+            jsonify_xml(options)
         });
 
     Program
@@ -27,7 +23,7 @@ Commands.Map = (Program) => {
         .description(`parse a JS object representation of xml to an xml string`)
         .option(`--path [string]`, `path to the json file to build the xml from`)
         .action(function(options) {
-            CommandFunctions.xmlify_json(options);
+            xmlify_json(options);
         });
 
     Program
@@ -35,7 +31,7 @@ Commands.Map = (Program) => {
         .description(`parse a markdown file to an html string`)
         .option(`--path [string]`, `path to the markdown file to build the html from`)
         .action(function(options) {
-            CommandFunctions.markdownify_html(options);
+            markdownify_html(options);
         });
 
     Program
@@ -43,8 +39,8 @@ Commands.Map = (Program) => {
         .description(`parse a html file to an markdown string`)
         .option(`--path [string]`, `path to the markdown file to build the html from`)
         .action(function(options) {
-            CommandFunctions.htmlify_markdown(options);
+            htmlify_markdown(options);
         });
 }
 
-module.exports = Commands;
+export { MapCommands };

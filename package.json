@@ -1,15 +1,16 @@
 {
-  "name": "glovebox",
+  "name": "glove-box",
   "version": "1.0.0",
-  "description": "A CLI tool with multiple utilities for working with Salesforce data and systems.",
+  "description": "A CLI tool with multiple utilities.",
   "main": "Index.js",
   "scripts": {},
   "keywords": [],
   "author": "Js.Land Josh",
+  "type": "module",
   "license": "MIT",
   "dependencies": {
     "commander": "^9.4.0",
-    "console-table-printer": "^2.11.1",
+    "jsdom": "^20.0.0",
     "jsome": "^2.5.0",
     "showdown": "^2.1.0",
     "xml2js": "^0.4.23"
