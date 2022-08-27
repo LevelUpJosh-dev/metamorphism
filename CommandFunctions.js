@@ -7,12 +7,12 @@ import fs from 'node:fs'
 import * as json2toml from 'json2toml';
 import * as json2yaml from 'json-to-pretty-yaml';
 import * as json_format from 'json-format';
-import xml2js from 'xml2js';
 import showdown from 'showdown';
+import xml2js from 'xml2js';
 import { JSDOM } from 'jsdom';
 
 /**
- * Takes a path to a XML file which will be transformed into JSON
+ * Takes a path to an XML file which will be transformed into JSON
  * @param { Object } options - Program options
  **/
 const jsonify_xml = (options) => {
@@ -50,6 +50,17 @@ const yamlify_json = (options) => {
 }
 
 /**
+ * Takes a path to a JSON file which will be transformed into TOML
+ * @param { Object } options - Program options
+ **/
+const tomlify_json = (options) => {
+    const json_string = fs.readFileSync(options.path, { "encoding": "utf8" });
+    const json = JSON.parse(json_string)
+    const json_toml = json2toml(json);
+    console.log(json_toml);
+}
+
+/**
  * Takes a path to a markdown file which will be transformed into HTML
  * @param { Object } options - Program options
  **/
@@ -75,4 +86,4 @@ const markdownify_html = (options) => {
     console.log(converter.makeMarkdown(html_string));
 }
 
-export { xmlify_json, markdownify_html, htmlify_markdown, jsonify_xml, yamlify_json };
+export { xmlify_json, markdownify_html, htmlify_markdown, jsonify_xml, yamlify_json, tomlify_json };
