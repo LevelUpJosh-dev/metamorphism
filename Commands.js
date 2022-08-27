@@ -1,7 +1,7 @@
 'use strict';
 
 /** Local Modules  **/
-import { jsonify_xml, xmlify_json, markdownify_html, htmlify_markdown, yamlify_json } from "./CommandFunctions.js";
+import { jsonify_xml, xmlify_json, markdownify_html, htmlify_markdown, yamlify_json, tomlify_json } from "./CommandFunctions.js";
 
 /**
  * Commands - Map
@@ -12,7 +12,7 @@ const MapCommands = (Program) => {
 
     Program
         .command(`jsonify_xml`)
-        .description(`parse an xml file and output a JS object representation of the xml`)
+        .description(`parse an XML file to a JSON representation of the xml`)
         .option(`--path [string]`, `path to the xml file to parse`)
         .action(function(options) {
             jsonify_xml(options)
@@ -20,7 +20,7 @@ const MapCommands = (Program) => {
 
     Program
         .command(`xmlify_json`)
-        .description(`parse a JS object representation of xml to an xml string`)
+        .description(`parse a JSON representation of xml to an xml string`)
         .option(`--path [string]`, `path to the json file to build the xml from`)
         .action(function(options) {
             xmlify_json(options);
@@ -28,7 +28,15 @@ const MapCommands = (Program) => {
 
     Program
         .command(`yamlify_json`)
-        .description(`parse a JSON object representation of xml to a YAML string`)
+        .description(`parse JSON file to a YAML string`)
+        .option(`--path [string]`, `path to the json file to build the xml from`)
+        .action(function(options) {
+            yamlify_json(options);
+        });
+
+    Program
+        .command(`tomlify_json`)
+        .description(`parse a JSON file to a TOML string`)
         .option(`--path [string]`, `path to the json file to build the xml from`)
         .action(function(options) {
             yamlify_json(options);
@@ -36,7 +44,7 @@ const MapCommands = (Program) => {
 
     Program
         .command(`markdownify_html`)
-        .description(`parse a markdown file to an html string`)
+        .description(`parse a markdown file to a html string`)
         .option(`--path [string]`, `path to the markdown file to build the html from`)
         .action(function(options) {
             markdownify_html(options);
@@ -44,7 +52,7 @@ const MapCommands = (Program) => {
 
     Program
         .command(`htmlify_markdown`)
-        .description(`parse a html file to an markdown string`)
+        .description(`parse a html file into a markdown string`)
         .option(`--path [string]`, `path to the markdown file to build the html from`)
         .action(function(options) {
             htmlify_markdown(options);
