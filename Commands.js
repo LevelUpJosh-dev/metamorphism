@@ -39,7 +39,7 @@ const MapCommands = (Program) => {
         .description(`parse a JSON file to a TOML string`)
         .option(`--path [string]`, `path to the json file to build the xml from`)
         .action(function(options) {
-            yamlify_json(options);
+            tomlify_json(options);
         });
 
     Program

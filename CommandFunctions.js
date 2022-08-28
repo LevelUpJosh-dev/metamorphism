@@ -11,6 +11,8 @@ import showdown from 'showdown';
 import xml2js from 'xml2js';
 import { JSDOM } from 'jsdom';
 
+const tomlParser = json2toml.default;
+
 /**
  * Takes a path to an XML file which will be transformed into JSON
  * @param { Object } options - Program options
@@ -56,7 +58,10 @@ const yamlify_json = (options) => {
 const tomlify_json = (options) => {
     const json_string = fs.readFileSync(options.path, { "encoding": "utf8" });
     const json = JSON.parse(json_string)
-    const json_toml = json2toml(json);
+    const json_toml = tomlParser(json, {
+            indent: 4,
+            newlineAfterSection: true
+        });
     console.log(json_toml);
 }
 
