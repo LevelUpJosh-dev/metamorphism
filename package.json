@@ -1,7 +1,7 @@
 {
-  "name": "glove-box",
-  "version": "1.0.0",
-  "description": "A CLI tool with multiple utilities.",
+  "name": "metamorphism",
+  "version": "1.0.3xws",
+  "description": "A cli tool for altering the composition of data",
   "main": "Index.js",
   "scripts": {
     "generate_docs": "jsdoc --configure Docs/jsdoc.json --verbose"
@@ -17,6 +17,7 @@
     "json-format": "^1.0.1",
     "json-to-pretty-yaml": "^1.2.2",
     "json2toml": "^3.0.1",
+    "metamorphism": "^1.0.3-xws",
     "npm": "^8.18.0",
     "showdown": "^2.1.0",
     "xml2js": "^0.4.23"
