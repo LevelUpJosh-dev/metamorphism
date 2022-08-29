@@ -7,12 +7,17 @@ const Program = new Command();
 import { MapCommands } from './Commands.js';
 
 /**
- * Glove-Box
+ * MetaMorphisM
+ * @description MetaMorphisM is a command line tool that allow you to alter the composition of data
+ * @example
+ * node Index.js xmlify_json --path "./Examples/Json/xml.json"
+ * node Index.js tomlify_json --path "./Examples/Json/xml.json"
+ * node Index.js jsonify_xml --path "./Examples/Xml/b2b.xml"
  * @module
  **/
 Program
-    .name(`Glove-Box`)
-    .description(`A CLI tool with multiple utilities`)
+    .name(`MetaMorphisM`)
+    .description(`Allows you to alter the composition of data`)
     .version(`1.0.0`);
 
 MapCommands(Program);
