@@ -4,6 +4,14 @@
 
 ---
 
+### Setup Steps
+1. Download the repostiroy to your local machine.
+2. Open the repo in your favorite IDE or open a CLI within the repo root.
+3. Run npm install
+4. Run any of the below commands to try the example files or use your own file path.
+
+---
+
 #### Available Methods
 ##### xmlify_json
 - Example: ```xmlify_json --path "./examples/json/xml.json"```
