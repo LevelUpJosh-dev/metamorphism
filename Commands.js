@@ -1,7 +1,18 @@
 'use strict';
 
 /** Local Modules  **/
-import { jsonify_xml, xmlify_json, markdownify_html, htmlify_markdown, yamlify_json, tomlify_json } from "./CommandFunctions.js";
+import {
+    csvify_json,
+    htmlify_markdown,
+    jsonify_csv,
+    jsonify_xml,
+    pdfify_plain_text,
+    markdownify_html,
+    textify_html,
+    tomlify_json,
+    xmlify_json,
+    yamlify_json
+} from "./CommandFunctions.js";
 
 /**
  * Commands - Map
@@ -56,6 +67,39 @@ const MapCommands = (Program) => {
         .option(`--path [string]`, `path to the markdown file to build the html from`)
         .action(function(options) {
             htmlify_markdown(options);
+        });
+
+    Program
+        .command(`jsonify_csv`)
+        .description(`parse a html file into a markdown string`)
+        .option(`--path [string]`, `path to the markdown file to build the html from`)
+        .action(function(options) {
+            jsonify_csv(options);
+        });
+
+    Program
+        .command(`csvify_json`)
+        .description(`parse a html file into a markdown string`)
+        .option(`--path [string]`, `path to the markdown file to build the html from`)
+        .action(function(options) {
+            csvify_json(options);
+        });
+
+    Program
+        .command(`textify_html`)
+        .description(`parse a html file into a plain text string`)
+        .option(`--path [string]`, `path to the HTML file to build the plain text string from`)
+        .action(function(options) {
+            textify_html(options);
+        });
+
+    Program
+        .command(`pdfify_plain_text`)
+        .description(`parse a plain text string or file into a PDF document`)
+        .option(`--path [string]`, `path to a plain_text file to process into a PDF`)
+        .option(`--fileName [string]`, `newly created PDF document file name`)
+        .action(function(options) {
+            pdfify_plain_text(options);
         });
 }
 

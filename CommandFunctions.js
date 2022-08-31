@@ -9,7 +9,10 @@ import * as json2yaml from 'json-to-pretty-yaml';
 import * as json_format from 'json-format';
 import showdown from 'showdown';
 import xml2js from 'xml2js';
-import { JSDOM } from 'jsdom';
+import { JSDOM } from 'jsdom'
+import Papaparse from 'papaparse'
+import { htmlToText } from 'html-to-text';
+import { jsPDF } from 'jspdf';
 
 const tomlParser = json2toml.default;
 
@@ -92,3 +95,49 @@ const markdownify_html = (options) => {
 }
 
 export { xmlify_json, markdownify_html, htmlify_markdown, jsonify_xml, yamlify_json, tomlify_json };
+
+/**
+ * Takes a path to an CSV file which will be transformed into JSON
+ * @param { Object } options - Program options
+ * @param { String } options.path - Path to CSV file to be morphed into JSON
+ **/
+const jsonify_csv = (options) => {
+    const csv_string = fs.readFileSync(options.path, { "encoding": "utf8" });
+    const csv_json = Papaparse.parse(csv_string);
+    console.log(JSON.stringify(csv_json.data));
+}
+
+/**
+ * Takes a path to an HTML file which will be transformed into Plain Text
+ * @param { Object } options - Program options
+ * @param { String } options.path - Path to HTML file to be morphed into Plain Text
+ **/
+const textify_html = (options) => {
+    const html_string = fs.readFileSync(options.path, { "encoding": "utf8" });
+    const html_plain_text = htmlToText(html_string, {
+        "wordwrap": 130
+    });
+    console.log(html_plain_text);
+}
+
+const pdfify_plain_text = (options) => {
+    const plain_text = fs.readFileSync(options.path, { "encoding": "utf8" });
+    const pdfDocument = new jsPDF()
+    pdfDocument.text(`Hello World`, 10, 10);
+    pdfDocument.save(`${options.fileName}.pdf`)
+    console.log(`${options.fileName}.pdf: Created successfully!`);
+}
+
+
+export {
+    csvify_json,
+    htmlify_markdown,
+    jsonify_csv,
+    jsonify_xml,
+    markdownify_html,
+    pdfify_plain_text,
+    textify_html,
+    tomlify_json,
+    xmlify_json,
+    yamlify_json
+};
