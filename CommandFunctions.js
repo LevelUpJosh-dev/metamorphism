@@ -19,6 +19,7 @@ const tomlParser = json2toml.default;
 /**
  * Takes a path to an XML file which will be transformed into JSON
  * @param { Object } options - Program options
+ * @param { String } options.path - Path to XML file to be morphed JSON
  **/
 const jsonify_xml = (options) => {
     const xml_string = fs.readFileSync(options.path, { "encoding": "utf8" });
@@ -35,6 +36,7 @@ const jsonify_xml = (options) => {
 /**
  * Takes a path to a JSON file which will be transformed into XML
  * @param { Object } options - Program options
+ * @param { String } options.path - Path to JSON file to be morphed XML
  **/
 const xmlify_json = (options) => {
     const xml_json = JSON.parse(fs.readFileSync(options.path, { "encoding": "utf8" }));
@@ -46,6 +48,7 @@ const xmlify_json = (options) => {
 /**
  * Takes a path to a JSON file which will be transformed into YAML
  * @param { Object } options - Program options
+ * @param { String } options.path - Path to JSON file to be morphed into YAML
  **/
 const yamlify_json = (options) => {
     const json_string = fs.readFileSync(options.path, { "encoding": "utf8" });
@@ -57,6 +60,7 @@ const yamlify_json = (options) => {
 /**
  * Takes a path to a JSON file which will be transformed into TOML
  * @param { Object } options - Program options
+ * @param { String } options.path - Path to JSON file to be morphed into TOML
  **/
 const tomlify_json = (options) => {
     const json_string = fs.readFileSync(options.path, { "encoding": "utf8" });
@@ -71,6 +75,7 @@ const tomlify_json = (options) => {
 /**
  * Takes a path to a markdown file which will be transformed into HTML
  * @param { Object } options - Program options
+ * @param { String } options.path - Path to Markdown file to be morphed HTML
  **/
 const htmlify_markdown = (options) => {
     const markdown_string = fs.readFileSync(options.path, { "encoding": "utf8" });
@@ -82,6 +87,7 @@ const htmlify_markdown = (options) => {
 /**
  * Takes a path to an HTML file which will be transformed into Markdown
  * @param { Object } options - Program options
+ * @param { String } options.path - Path to HTML file to be morphed into Markdown
  **/
 const markdownify_html = (options) => {
     /**
@@ -94,7 +100,16 @@ const markdownify_html = (options) => {
     console.log(converter.makeMarkdown(html_string));
 }
 
-export { xmlify_json, markdownify_html, htmlify_markdown, jsonify_xml, yamlify_json, tomlify_json };
+/**
+ * Takes a path to a JSON file which will be transformed into CSV
+ * @param { Object } options - Program options
+ * @param { String } options.path - Path to JSON file to be morphed into CSV
+ **/
+const csvify_json = (options) => {
+    const json = JSON.parse(fs.readFileSync(options.path, { "encoding": "utf8" }));
+    const csv_string = Papaparse.unparse([json.Flow]);
+    console.log(csv_string);
+}
 
 /**
  * Takes a path to an CSV file which will be transformed into JSON

@@ -1,6 +1,6 @@
-# metamorphism
+# MetaMorphisM
 
-### Alter the composition of data.
+### Allows you to alter the composition of data.
 
 ---
 

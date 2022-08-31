@@ -1,0 +1,2530 @@
+{
+  "Flow": {
+    "$": {
+      "xmlns": "http://soap.sforce.com/2006/04/metadata"
+    },
+    "actionCalls": [
+      {
+        "name": [
+          "eventContextErrorEmail"
+        ],
+        "label": [
+          "Context Error Email"
+        ],
+        "locationX": [
+          "0"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "actionName": [
+          "emailSimple"
+        ],
+        "actionType": [
+          "emailSimple"
+        ],
+        "flowTransactionModel": [
+          "CurrentTransaction"
+        ],
+        "inputParameters": [
+          {
+            "name": [
+              "emailSubject"
+            ],
+            "value": [
+              {
+                "stringValue": [
+                  "Salesforce Process CommerceDiagnosticEvents process didn't start: No matching records found"
+                ]
+              }
+            ]
+          },
+          {
+            "name": [
+              "emailBody"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "noRecordsFoundTextTemplate"
+                ]
+              }
+            ]
+          },
+          {
+            "name": [
+              "emailAddresses"
+            ],
+            "value": [
+              {
+                "stringValue": [
+                  "test@salesforce.com"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": [
+          "eventContextMoreEmail"
+        ],
+        "label": [
+          "Context Error Email"
+        ],
+        "locationX": [
+          "0"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "actionName": [
+          "emailSimple"
+        ],
+        "actionType": [
+          "emailSimple"
+        ],
+        "flowTransactionModel": [
+          "CurrentTransaction"
+        ],
+        "inputParameters": [
+          {
+            "name": [
+              "emailSubject"
+            ],
+            "value": [
+              {
+                "stringValue": [
+                  "Salesforce Process CommerceDiagnosticEvents process didn't start: Multiple matching records found"
+                ]
+              }
+            ]
+          },
+          {
+            "name": [
+              "emailBody"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "multipleRecordsFoundTextTemplate"
+                ]
+              }
+            ]
+          },
+          {
+            "name": [
+              "emailAddresses"
+            ],
+            "value": [
+              {
+                "stringValue": [
+                  "test@salesforce.com"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "assignments": [
+      {
+        "name": [
+          "RecordCountAssignment"
+        ],
+        "label": [
+          "RecordCountAssignment"
+        ],
+        "locationX": [
+          "0"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "assignmentItems": [
+          {
+            "assignToReference": [
+              "myVariable_event_record_count"
+            ],
+            "operator": [
+              "Add"
+            ],
+            "value": [
+              {
+                "numberValue": [
+                  "1.0"
+                ]
+              }
+            ]
+          },
+          {
+            "assignToReference": [
+              "myVariable_event_context"
+            ],
+            "operator": [
+              "Assign"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_event_current_record"
+                ]
+              }
+            ]
+          }
+        ],
+        "connector": [
+          {
+            "targetReference": [
+              "eventContextCheckLoop"
+            ]
+          }
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "name": [
+          "eventContextCheckDecision"
+        ],
+        "label": [
+          "ContextCheckDecision"
+        ],
+        "locationX": [
+          "0"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "defaultConnector": [
+          {
+            "targetReference": [
+              "myDecision"
+            ]
+          }
+        ],
+        "defaultConnectorLabel": [
+          "default"
+        ],
+        "rules": [
+          {
+            "name": [
+              "eventContextCheckRule"
+            ],
+            "conditionLogic": [
+              "and"
+            ],
+            "conditions": [
+              {
+                "leftValueReference": [
+                  "myVariable_event_record_count"
+                ],
+                "operator": [
+                  "EqualTo"
+                ],
+                "rightValue": [
+                  {
+                    "numberValue": [
+                      "0.0"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "connector": [
+              {
+                "targetReference": [
+                  "eventContextErrorEmail"
+                ]
+              }
+            ],
+            "label": [
+              "Context Check Decision - Is Zero"
+            ]
+          },
+          {
+            "name": [
+              "eventContextGtOneCheckRule"
+            ],
+            "conditionLogic": [
+              "and"
+            ],
+            "conditions": [
+              {
+                "leftValueReference": [
+                  "myVariable_event_record_count"
+                ],
+                "operator": [
+                  "GreaterThan"
+                ],
+                "rightValue": [
+                  {
+                    "numberValue": [
+                      "1.0"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "connector": [
+              {
+                "targetReference": [
+                  "eventContextMoreEmail"
+                ]
+              }
+            ],
+            "label": [
+              "Context Check Decision - Greater than One"
+            ]
+          }
+        ]
+      },
+      {
+        "processMetadataValues": [
+          {
+            "name": [
+              "index"
+            ],
+            "value": [
+              {
+                "numberValue": [
+                  "0.0"
+                ]
+              }
+            ]
+          }
+        ],
+        "name": [
+          "myDecision"
+        ],
+        "label": [
+          "myDecision"
+        ],
+        "locationX": [
+          "50"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "defaultConnectorLabel": [
+          "default"
+        ],
+        "rules": [
+          {
+            "name": [
+              "myRule_1"
+            ],
+            "conditionLogic": [
+              "and"
+            ],
+            "conditions": [
+              {
+                "leftValueReference": [
+                  "formula_myRule_1"
+                ],
+                "operator": [
+                  "EqualTo"
+                ],
+                "rightValue": [
+                  {
+                    "booleanValue": [
+                      "true"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "connector": [
+              {
+                "targetReference": [
+                  "myRule_1_A1"
+                ]
+              }
+            ],
+            "label": [
+              "true"
+            ]
+          }
+        ]
+      }
+    ],
+    "formulas": [
+      {
+        "name": [
+          "formula_myRule_1"
+        ],
+        "dataType": [
+          "Boolean"
+        ],
+        "expression": [
+          "true"
+        ]
+      },
+      {
+        "name": [
+          "OrganizationName"
+        ],
+        "dataType": [
+          "String"
+        ],
+        "expression": [
+          "{!$Organization.Name}"
+        ]
+      }
+    ],
+    "interviewLabel": [
+      "Process_CommerceDiagnosticEvents-1_InterviewLabel"
+    ],
+    "label": [
+      "Process CommerceDiagnosticEvents"
+    ],
+    "loops": [
+      {
+        "name": [
+          "eventContextCheckLoop"
+        ],
+        "label": [
+          "ContextCheckLoop"
+        ],
+        "locationX": [
+          "0"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "assignNextValueToReference": [
+          "myVariable_event_current_record"
+        ],
+        "collectionReference": [
+          "myVariable_event_context_collection"
+        ],
+        "iterationOrder": [
+          "Asc"
+        ],
+        "nextValueConnector": [
+          {
+            "targetReference": [
+              "RecordCountAssignment"
+            ]
+          }
+        ],
+        "noMoreValuesConnector": [
+          {
+            "targetReference": [
+              "eventContextCheckDecision"
+            ]
+          }
+        ]
+      }
+    ],
+    "processMetadataValues": [
+      {
+        "name": [
+          "EventType"
+        ],
+        "value": [
+          {
+            "stringValue": [
+              "CommerceDiagnosticEvent"
+            ]
+          }
+        ]
+      },
+      {
+        "name": [
+          "ObjectType"
+        ],
+        "value": [
+          {
+            "stringValue": [
+              "WebStoreNetwork"
+            ]
+          }
+        ]
+      }
+    ],
+    "processType": [
+      "CustomEvent"
+    ],
+    "recordCreates": [
+      {
+        "name": [
+          "myRule_1_A1"
+        ],
+        "label": [
+          "add to custom object"
+        ],
+        "locationX": [
+          "100"
+        ],
+        "locationY": [
+          "200"
+        ],
+        "inputAssignments": [
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "B2B Edition"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "B2B_Edition__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.B2bEdition"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "B2B Version"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "B2B_Version__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.B2bVersion"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Number"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Browser Device Type"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Browser_Device_Type__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.BrowserDeviceType"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Context Id 2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Context_Id_2__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.ContextId2"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Context Id"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Context_Id__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.ContextId"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Context Map"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Context_Map__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.ContextMap"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Correlation Id"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Correlation_Id__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.CorrelationId"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Number"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Count"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Count__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.Count"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Effective Account Id"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Effective_Account_Id__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.EffectiveAccountId"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Error Code"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Error_Code__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.ErrorCode"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Error Message"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Error_Message__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.ErrorMessage"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event Created By"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Event_Created_By__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.CreatedById"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "DateTime"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event Created Date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Event_Created_Date__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.EventDate"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Boolean"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Is Retry"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Is_Retry__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.IsRetry"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Number"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "OS Version"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "OS_Version__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.OsVersion"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Operation Stage"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Operation_Stage__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.OperationStage"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Operation State"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Operation_State__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.OperationState"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Operation Status"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Operation_Status__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.OperationStatus"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Number"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Operation Time"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Operation_Time__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.OperationTime"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Operation"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Operation__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.Operation"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Service Name"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "Service_Name__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.ServiceName"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "User"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "User__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.UserId"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "WebStore Id"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "WebStore_Id__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.WebStoreId"
+                ]
+              }
+            ]
+          },
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "dataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "isRequired"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "WebStore Type"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      ""
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Event"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "WebStore_Type__c"
+            ],
+            "value": [
+              {
+                "elementReference": [
+                  "myVariable_myEvent.WebStoreType"
+                ]
+              }
+            ]
+          }
+        ],
+        "object": [
+          "CommerceDiagnosticCustomObject__c"
+        ]
+      }
+    ],
+    "recordLookups": [
+      {
+        "name": [
+          "myEventContextRecordLookup"
+        ],
+        "label": [
+          "myEventContextRecordLookup"
+        ],
+        "locationX": [
+          "0"
+        ],
+        "locationY": [
+          "0"
+        ],
+        "assignNullValuesIfNoRecordsFound": [
+          "false"
+        ],
+        "connector": [
+          {
+            "targetReference": [
+              "eventContextCheckLoop"
+            ]
+          }
+        ],
+        "filterLogic": [
+          "and"
+        ],
+        "filters": [
+          {
+            "processMetadataValues": [
+              {
+                "name": [
+                  "implicit"
+                ],
+                "value": [
+                  {
+                    "booleanValue": [
+                      "false"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "inputDataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "ID"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideLabel"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "Store ID"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideReferenceTo"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "WebStore"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "leftHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "ID"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "operatorDataType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "String"
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": [
+                  "rightHandSideType"
+                ],
+                "value": [
+                  {
+                    "stringValue": [
+                      "ID"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "field": [
+              "WebStoreId"
+            ],
+            "operator": [
+              "EqualTo"
+            ],
+            "value": [
+              {
+                "stringValue": [
+                  "0ZER000000004ZaOAI"
+                ]
+              }
+            ]
+          }
+        ],
+        "object": [
+          "WebStoreNetwork"
+        ],
+        "outputReference": [
+          "myVariable_event_context_collection"
+        ]
+      }
+    ],
+    "startElementReference": [
+      "myEventContextRecordLookup"
+    ],
+    "status": [
+      "Draft"
+    ],
+    "textTemplates": [
+      {
+        "description": [
+          "text template for when multiple records are records found"
+        ],
+        "name": [
+          "multipleRecordsFoundTextTemplate"
+        ],
+        "isViewedAsPlainText": [
+          "false"
+        ],
+        "text": [
+          "Hello {!OrganizationName} Admin,\n\n            The Process CommerceDiagnosticEvents process is configured to start when a Commerce Diagnostic Event platform event message occurs. A Commerce Diagnostic Event message occurred, but the process didn't start because multiple records in your org match the values specified in the process's Object node.\n\n\n\n            To fix this issue, adjust the matching filters in the process's Object node.\n\n            Thank you,\n            Salesforce Process Automation"
+        ]
+      },
+      {
+        "description": [
+          "text template for no records found"
+        ],
+        "name": [
+          "noRecordsFoundTextTemplate"
+        ],
+        "isViewedAsPlainText": [
+          "false"
+        ],
+        "text": [
+          "Hello {!OrganizationName} Admin,\n\n            The Process CommerceDiagnosticEvents process is configured to start when a Commerce Diagnostic Event platform event message occurs. A Commerce Diagnostic Event message occurred, but the process didn't start because no records in your org match the values specified in the process's Object node.\n\n\n\n            To fix this issue, adjust the matching filters in the process's Object node.\n\n            Thank you,\n            Salesforce Process Automation"
+        ]
+      }
+    ],
+    "variables": [
+      {
+        "name": [
+          "myVariable_event_context"
+        ],
+        "dataType": [
+          "SObject"
+        ],
+        "isCollection": [
+          "false"
+        ],
+        "isInput": [
+          "true"
+        ],
+        "isOutput": [
+          "true"
+        ],
+        "objectType": [
+          "WebStoreNetwork"
+        ]
+      },
+      {
+        "name": [
+          "myVariable_event_context_collection"
+        ],
+        "dataType": [
+          "SObject"
+        ],
+        "isCollection": [
+          "true"
+        ],
+        "isInput": [
+          "true"
+        ],
+        "isOutput": [
+          "true"
+        ],
+        "objectType": [
+          "WebStoreNetwork"
+        ]
+      },
+      {
+        "name": [
+          "myVariable_event_current_record"
+        ],
+        "dataType": [
+          "SObject"
+        ],
+        "isCollection": [
+          "false"
+        ],
+        "isInput": [
+          "true"
+        ],
+        "isOutput": [
+          "true"
+        ],
+        "objectType": [
+          "WebStoreNetwork"
+        ]
+      },
+      {
+        "name": [
+          "myVariable_event_record_count"
+        ],
+        "dataType": [
+          "Number"
+        ],
+        "isCollection": [
+          "false"
+        ],
+        "isInput": [
+          "true"
+        ],
+        "isOutput": [
+          "true"
+        ],
+        "scale": [
+          "2"
+        ],
+        "value": [
+          {
+            "numberValue": [
+              "0.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": [
+          "myVariable_myEvent"
+        ],
+        "dataType": [
+          "SObject"
+        ],
+        "isCollection": [
+          "false"
+        ],
+        "isInput": [
+          "true"
+        ],
+        "isOutput": [
+          "false"
+        ],
+        "objectType": [
+          "CommerceDiagnosticEvent"
+        ]
+      }
+    ]
+  }
+}
