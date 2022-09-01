@@ -4,9 +4,10 @@
 import {
     csvify_json,
     htmlify_markdown,
+    htmlify_docx,
     jsonify_csv,
     jsonify_xml,
-    stringify_pdf,
+    pdfify_plain_text,
     markdownify_html,
     textify_html,
     tomlify_json,
@@ -91,6 +92,24 @@ const MapCommands = (Program) => {
         .option(`--path [string]`, `path to the HTML file to build the plain text string from`)
         .action(function(options) {
             textify_html(options);
+        });
+
+    Program
+        .command(`pdfify_plain_text`)
+        .description(`parse a plain text string or file into a PDF document`)
+        .option(`--path [string]`, `path to a plain_text file to process into a PDF`)
+        .option(`--fileName [string]`, `newly created PDF document file name`)
+        .action(function(options) {
+            pdfify_plain_text(options);
+        });
+
+    Program
+        .command(`htmlify_docx`)
+        .description(`parse a docx file into HTML`)
+        .option(`--path [string]`, `path to a docx file to process into a HTML`)
+        .option(`--fileName [string]`, `newly created HTML file name`)
+        .action(function(options) {
+            htmlify_docx(options);
         });
 }
 

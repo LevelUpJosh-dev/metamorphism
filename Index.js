@@ -8,7 +8,7 @@ import { MapCommands } from './Commands.js';
 
 /**
  * MetaMorphisM
- * @description MetaMorphisM is a command line tool that allow you to alter the composition of data
+ * @description A command line tool that allow you to alter the composition of data
  * @example
  * node Index.js xmlify_json --path "./Examples/Json/xml.json"
  * node Index.js tomlify_json --path "./Examples/Json/xml.json"
