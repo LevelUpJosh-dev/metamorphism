@@ -13,6 +13,7 @@ import { JSDOM } from 'jsdom'
 import Papaparse from 'papaparse'
 import { htmlToText } from 'html-to-text';
 import { jsPDF } from 'jspdf';
+import * as Mammoth from 'mammoth';
 
 const tomlParser = json2toml.default;
 
@@ -143,10 +144,21 @@ const pdfify_plain_text = (options) => {
     console.log(`${options.fileName}.pdf: Created successfully!`);
 }
 
+const htmlify_docx = async (options) => {
+    const docx_html = await Mammoth.convertToHtml({ "path" : options.path })
+    console.log(docx_html.value);
+}
+
+//TODO: Adds JSON validation method using ajv
+//TODO: Add CSV validation method using csv-file-validation
+//TODO: Add general string validator using validator
+//TODO: Add JSON dupe key checker using json-dup-key-validator
+//TODO: Add glob to Regex validation helper using glob-to-regexp
 
 export {
     csvify_json,
     htmlify_markdown,
+    htmlify_docx,
     jsonify_csv,
     jsonify_xml,
     markdownify_html,

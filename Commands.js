@@ -4,6 +4,7 @@
 import {
     csvify_json,
     htmlify_markdown,
+    htmlify_docx,
     jsonify_csv,
     jsonify_xml,
     pdfify_plain_text,
@@ -100,6 +101,15 @@ const MapCommands = (Program) => {
         .option(`--fileName [string]`, `newly created PDF document file name`)
         .action(function(options) {
             pdfify_plain_text(options);
+        });
+
+    Program
+        .command(`htmlify_docx`)
+        .description(`parse a docx file into HTML`)
+        .option(`--path [string]`, `path to a docx file to process into a HTML`)
+        .option(`--fileName [string]`, `newly created HTML file name`)
+        .action(function(options) {
+            htmlify_docx(options);
         });
 }
 
