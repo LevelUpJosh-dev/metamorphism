@@ -20,7 +20,7 @@
     "metamorphism": "^1.0.3-xws",
     "npm": "^8.18.0",
     "showdown": "^2.1.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.5.0"
   },
   "devDependencies": {
     "clean-jsdoc-theme": "^4.1.7"
